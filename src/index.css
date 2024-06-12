@@ -7,3 +7,36 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+header {
+  position: fixed;
+  color: turquoise;
+  z-index: 1;
+  width: 100%;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+  margin-right: auto;
+  font-size: 1.2rem;
+}
+
+button {
+  font-family: monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.5em 0.8em;
+  border: none;
+  background-color: turquoise;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+button:hover {
+  box-shadow: 0 0 10px turquoise;
+}
