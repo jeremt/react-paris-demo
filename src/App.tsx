@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>React lovers</h1>
+        <h1>🩵 React lovers</h1>
         <button onClick={joinTheCrew}>Join the crew</button>
         <a href="https://github.com/jeremt/react-paris-demo" target="_blank">
           <svg
@@ -52,6 +52,9 @@ function App() {
           maxPolarAngle={Math.PI / 2}
         />
       </Canvas>
+      <footer>
+        Click on any picture to open the corresponding Github profile 👀
+      </footer>
     </>
   );
 }

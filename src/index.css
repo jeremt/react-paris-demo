@@ -21,13 +21,13 @@ header {
   gap: 1rem;
 }
 
-h1 {
+header > h1 {
   margin: 0;
   margin-right: auto;
   font-size: 1.2rem;
 }
 
-button {
+header > button {
   font-family: monospace;
   font-size: 0.9rem;
   font-weight: bold;
@@ -37,6 +37,17 @@ button {
   cursor: pointer;
   transition: all 0.3s;
 }
-button:hover {
+
+header > button:hover {
   box-shadow: 0 0 10px turquoise;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  color: turquoise;
+  font-family: monospace;
 }
