@@ -3,6 +3,7 @@ import { Float, OrbitControls, Stars } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { ReactLogo } from "./ReactLogo";
 import { useReactLovers } from "./useReactLovers";
+import { ReactLover } from "./ReactLover";
 
 function App() {
   const { lovers, addLover } = useReactLovers();
@@ -40,6 +41,7 @@ function App() {
         <Float speed={4} rotationIntensity={1} floatIntensity={2}>
           <ReactLogo />
         </Float>
+        <ReactLover text="jonathanpicques" />
         <Stars saturation={1} count={400} speed={0.5} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
