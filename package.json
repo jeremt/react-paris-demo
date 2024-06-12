@@ -12,7 +12,10 @@
   "dependencies": {
     "@react-three/drei": "^9.106.0",
     "@react-three/fiber": "^8.16.8",
+    "@supabase/supabase-js": "^2.43.4",
     "@types/three": "^0.165.0",
+    "install": "^0.13.0",
+    "npm": "^10.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.165.0"
