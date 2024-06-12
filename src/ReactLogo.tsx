@@ -1,32 +1,41 @@
 import { useMemo } from "react";
 import { Line, Sphere } from "@react-three/drei";
-import { EllipseCurve } from "three";
+import { EllipseCurve, MeshBasicMaterial, MeshPhysicalMaterial } from "three";
 
 export function ReactLogo() {
   const points = useMemo(
     () =>
-      new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100),
+      new EllipseCurve(0, 0, 3, 1.3, 0, 2 * Math.PI, false, 0).getPoints(100),
     []
   );
+  const color = [0.43 * 1, 1.49 * 1, 1.39 * 1] as const;
   return (
     <group>
-      <Line worldUnits points={points} color="turquoise" lineWidth={0.3} />
       <Line
         worldUnits
         points={points}
-        color="turquoise"
+        color={color}
+        toneMapped={false}
+        lineWidth={0.3}
+      />
+      <Line
+        worldUnits
+        points={points}
+        color={color}
         lineWidth={0.3}
         rotation={[0, 0, 1]}
+        toneMapped={false}
       />
       <Line
         worldUnits
         points={points}
-        color="turquoise"
         lineWidth={0.3}
+        color={color}
         rotation={[0, 0, -1]}
+        toneMapped={false}
       />
       <Sphere args={[0.55, 64, 64]}>
-        <meshBasicMaterial color="turquoise" toneMapped={false} />
+        <meshBasicMaterial color={color} />
       </Sphere>
     </group>
   );
