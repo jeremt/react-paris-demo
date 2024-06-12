@@ -8,7 +8,7 @@ export function ReactLogo() {
       new EllipseCurve(0, 0, 3, 1.3, 0, 2 * Math.PI, false, 0).getPoints(100),
     []
   );
-  const color = [0.43, 1.49, 1.39] as unknown as ColorRepresentation;
+  const color = [0.3, 3.5, 4] as unknown as ColorRepresentation;
   return (
     <group>
       <Line
