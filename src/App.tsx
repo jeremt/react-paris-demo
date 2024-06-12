@@ -41,7 +41,7 @@ function App() {
         <Float speed={4} rotationIntensity={1} floatIntensity={2}>
           <ReactLogo />
         </Float>
-        <ReactLover text="jonathanpicques" />
+        <ReactLover username="jonathanpicques" />
         <Stars saturation={1} count={400} speed={0.5} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
