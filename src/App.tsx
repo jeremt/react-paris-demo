@@ -4,6 +4,8 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { ReactLogo } from "./ReactLogo";
 import { useReactLovers } from "./useReactLovers";
 import { ReactLover } from "./ReactLover";
+import { Vector3 } from "three";
+import { useMemo } from "react";
 
 function App() {
   const { lovers, addLover } = useReactLovers();
@@ -13,11 +15,15 @@ function App() {
       addLover(username);
     }
   };
-  console.log(lovers);
+  const points = useMemo(
+    () => generateSpherePoints(lovers.length, 5),
+    [lovers.length]
+  );
+
   return (
     <>
       <header>
-        <h1>🩵 React lovers</h1>
+        <h1>React lovers</h1>
         <button onClick={joinTheCrew}>Join the crew</button>
         <a href="https://github.com/jeremt/react-paris-demo" target="_blank">
           <svg
@@ -41,7 +47,11 @@ function App() {
         <Float speed={4} rotationIntensity={1} floatIntensity={2}>
           <ReactLogo />
         </Float>
-        <ReactLover username="jonathanpicques" />
+        <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+          {points.map((point, i) => (
+            <ReactLover key={i} lover={lovers[i]} position={point} />
+          ))}
+        </Float>
         <Stars saturation={1} count={400} speed={0.5} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
@@ -57,6 +67,26 @@ function App() {
       </footer>
     </>
   );
+}
+
+// Thank you Gemini (I'm too stupid to do math by myself now 🥲)
+function generateSpherePoints(numPoints: number, radius: number) {
+  const points = [];
+
+  for (let i = 0; i < numPoints; i++) {
+    // Generate random values for theta and phi
+    const theta = Math.random() * 2 * Math.PI; // 0 to 2*PI for even distribution
+    const phi = Math.acos(2 * Math.random() - 1); // 0 to PI for full sphere
+
+    // Calculate random points on a unit sphere (radius 1)
+    const x = Math.sin(phi) * Math.cos(theta);
+    const y = Math.sin(phi) * Math.sin(theta);
+    const z = Math.cos(phi);
+
+    // Scale points to desired radius
+    points.push(new Vector3(radius * x, radius * y, radius * z));
+  }
+  return points;
 }
 
 export default App;

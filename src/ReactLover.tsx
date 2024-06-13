@@ -1,17 +1,15 @@
-import { Billboard, Text } from "@react-three/drei";
+import { Billboard, useTexture } from "@react-three/drei";
 import { useEffect, useState } from "react";
+import { Vector3 } from "three";
+import { Lover } from "./useReactLovers";
 
 type Props = {
-  username: string;
+  lover: Lover;
+  position: Vector3;
 };
 
-export function ReactLover({ username }: Props) {
-  const fontProps = {
-    fontSize: 0.8,
-    letterSpacing: -0.05,
-    lineHeight: 1,
-    "material-toneMapped": false,
-  };
+export function ReactLover({ lover, position }: Props) {
+  const texture = useTexture(lover.avatar_url);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
@@ -22,16 +20,17 @@ export function ReactLover({ username }: Props) {
   }, [hovered]);
 
   return (
-    <Billboard>
-      <Text
+    <Billboard position={position}>
+      <mesh
         onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
         onPointerOut={() => setHovered(false)}
-        color="turquoise"
-        onClick={() => window.open(`https://github.com/${username}`)}
-        {...fontProps}
+        onClick={() =>
+          window.open(`https://github.com/${lover.github_username}`)
+        }
       >
-        {username}
-      </Text>
+        <circleGeometry args={[0.25]} />
+        <meshBasicMaterial map={texture} />
+      </mesh>
     </Billboard>
   );
 }

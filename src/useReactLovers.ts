@@ -7,16 +7,21 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+export interface Lover {
+  github_username: string;
+  avatar_url: string;
+}
+
 export const useReactLovers = () => {
-  const [lovers, setLovers] = useState<string[]>([]);
+  const [lovers, setLovers] = useState<Lover[]>([]);
 
   useEffect(() => {
     (async () => {
       const result = await supabase
         .from("react_lovers")
-        .select("github_username");
+        .select("github_username, avatar_url");
       if (!result.data) return;
-      setLovers(result.data.map((d) => d.github_username as string));
+      setLovers(result.data);
     })();
   }, []);
 
@@ -32,7 +37,7 @@ export const useReactLovers = () => {
           schema: "public",
         },
         (payload) => {
-          setLovers((l) => [...l, payload.new.github_username]);
+          setLovers((l) => [...l, payload.new as Lover]);
         }
       )
       .subscribe();
@@ -44,10 +49,21 @@ export const useReactLovers = () => {
   return {
     lovers,
     addLover: async (github_username: string) => {
+      const res = await fetch(
+        `https://api.github.com/users/${github_username}`
+      );
+
+      if (res.status === 404) {
+        return;
+      }
+
+      const { avatar_url } = await res.json();
       const { error } = await supabase
         .from("react_lovers")
-        .insert({ github_username });
-      console.log(error);
+        .insert({ github_username, avatar_url });
+      if (error) {
+        console.error(error);
+      }
     },
   };
 };
