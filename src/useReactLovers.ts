@@ -49,21 +49,22 @@ export const useReactLovers = () => {
   return {
     lovers,
     addLover: async (github_username: string) => {
-      const res = await fetch(
-        `https://api.github.com/users/${github_username}`
-      );
+      setLovers(l => [...l, {avatar_url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg', github_username}]);
+      // const res = await fetch(
+      //   `https://api.github.com/users/${github_username}`
+      // );
 
-      if (res.status === 404) {
-        return;
-      }
+      // if (res.status === 404) {
+      //   return;
+      // }
 
-      const { avatar_url } = await res.json();
-      const { error } = await supabase
-        .from("react_lovers")
-        .insert({ github_username, avatar_url });
-      if (error) {
-        console.error(error);
-      }
+      // const { avatar_url } = await res.json();
+      // const { error } = await supabase
+      //   .from("react_lovers")
+      //   .insert({ github_username, avatar_url });
+      // if (error) {
+      //   console.error(error);
+      // }
     },
   };
 };

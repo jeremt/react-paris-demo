@@ -2,23 +2,43 @@ import { Canvas } from "@react-three/fiber";
 import { Float, OrbitControls, Stars } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { ReactLogo } from "./ReactLogo";
-import { useReactLovers } from "./useReactLovers";
+import { Lover, useReactLovers } from "./useReactLovers";
 import { ReactLover } from "./ReactLover";
 import { Vector3 } from "three";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const { lovers, addLover } = useReactLovers();
+  const [points, setPoints] = useState(() =>
+    generateSpherePoints(lovers.length, 5).map((point, i) => ({
+      point,
+      lover: lovers[i],
+    }))
+  );
+
   const joinTheCrew = () => {
     const username = prompt("What's your github username?");
     if (username) {
       addLover(username);
     }
   };
-  const points = useMemo(
-    () => generateSpherePoints(lovers.length, 5),
-    [lovers.length]
-  );
+
+  useEffect(() => {
+    setPoints((oldPoints) => {
+      const newPoints: { lover: Lover; point: Vector3 }[] = [];
+      for (const lover of lovers) {
+        const old = oldPoints.find(
+          (p) => p.lover.github_username === lover.github_username
+        );
+        if (old) {
+          newPoints.push(old);
+        } else {
+          newPoints.push({ point: generateSpherePoints(1, 5)[0]!, lover });
+        }
+      }
+      return newPoints;
+    });
+  }, [lovers]);
 
   return (
     <>
@@ -49,7 +69,7 @@ function App() {
         </Float>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
           {points.map((point, i) => (
-            <ReactLover key={i} lover={lovers[i]} position={point} />
+            <ReactLover key={i} lover={point.lover} position={point.point} />
           ))}
         </Float>
         <Stars saturation={1} count={400} speed={0.5} />

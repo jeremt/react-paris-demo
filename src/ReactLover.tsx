@@ -1,5 +1,5 @@
-import { Billboard, useTexture } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { Billboard, Text, useTexture } from "@react-three/drei";
+import { useEffect, useMemo, useState } from "react";
 import { Vector3 } from "three";
 import { Lover } from "./useReactLovers";
 
@@ -12,6 +12,8 @@ export function ReactLover({ lover, position }: Props) {
   const texture = useTexture(lover.avatar_url);
   const [hovered, setHovered] = useState(false);
 
+  const textPosition = useMemo(() => new Vector3(0, -0.35, 0), []);
+
   useEffect(() => {
     if (hovered) document.body.style.cursor = "pointer";
     return () => {
@@ -21,6 +23,7 @@ export function ReactLover({ lover, position }: Props) {
 
   return (
     <Billboard position={position}>
+      <Text position={textPosition} visible={hovered} anchorY="top" fontSize={0.2}>{lover.github_username}</Text>
       <mesh
         onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
         onPointerOut={() => setHovered(false)}
