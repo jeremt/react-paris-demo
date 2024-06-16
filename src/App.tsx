@@ -54,11 +54,7 @@ function App() {
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
-        <OrbitControls
-          enableZoom={false}
-          minPolarAngle={0}
-          maxPolarAngle={Math.PI / 2}
-        />
+        <OrbitControls enableZoom={false} />
       </Canvas>
       <footer>
         Click on any picture to open the corresponding Github profile 👀
