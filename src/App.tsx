@@ -47,7 +47,12 @@ function App() {
         </Float>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
           {points.map((point, i) => (
-            <ReactLover key={i} lover={point.lover} position={point.point} />
+            <ReactLover
+              key={i}
+              justAdded={point.justAdded}
+              lover={point.lover}
+              position={point.point}
+            />
           ))}
         </Float>
         <Stars saturation={1} count={400} speed={0.5} />
