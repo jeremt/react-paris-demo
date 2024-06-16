@@ -4,21 +4,19 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { ReactLogo } from "./ReactLogo";
 import { useReactLovers } from "./useReactLovers";
 import { ReactLover } from "./ReactLover";
-import { Vector3 } from "three";
-import { useMemo } from "react";
+import { useSphericalPoints } from "./useSphericalPoints";
 
 function App() {
   const { lovers, addLover } = useReactLovers();
+
+  const points = useSphericalPoints(lovers);
+
   const joinTheCrew = () => {
     const username = prompt("What's your github username?");
     if (username) {
       addLover(username);
     }
   };
-  const points = useMemo(
-    () => generateSpherePoints(lovers.length, 5),
-    [lovers.length]
-  );
 
   return (
     <>
@@ -49,44 +47,20 @@ function App() {
         </Float>
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
           {points.map((point, i) => (
-            <ReactLover key={i} lover={lovers[i]} position={point} />
+            <ReactLover key={i} lover={point.lover} position={point.point} />
           ))}
         </Float>
         <Stars saturation={1} count={400} speed={0.5} />
         <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
         </EffectComposer>
-        <OrbitControls
-          enableZoom={false}
-          minPolarAngle={0}
-          maxPolarAngle={Math.PI / 2}
-        />
+        <OrbitControls enableZoom={false} />
       </Canvas>
       <footer>
         Click on any picture to open the corresponding Github profile 👀
       </footer>
     </>
   );
-}
-
-// Thank you Gemini (I'm too stupid to do math by myself now 🥲)
-function generateSpherePoints(numPoints: number, radius: number) {
-  const points = [];
-
-  for (let i = 0; i < numPoints; i++) {
-    // Generate random values for theta and phi
-    const theta = Math.random() * 2 * Math.PI; // 0 to 2*PI for even distribution
-    const phi = Math.acos(2 * Math.random() - 1); // 0 to PI for full sphere
-
-    // Calculate random points on a unit sphere (radius 1)
-    const x = Math.sin(phi) * Math.cos(theta);
-    const y = Math.sin(phi) * Math.sin(theta);
-    const z = Math.cos(phi);
-
-    // Scale points to desired radius
-    points.push(new Vector3(radius * x, radius * y, radius * z));
-  }
-  return points;
 }
 
 export default App;

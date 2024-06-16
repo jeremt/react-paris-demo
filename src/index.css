@@ -43,6 +43,7 @@ header > button:hover {
 }
 
 footer {
+  box-sizing: border-box;
   position: fixed;
   bottom: 0;
   width: 100%;

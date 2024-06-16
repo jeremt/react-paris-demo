@@ -1,4 +1,4 @@
-import { Billboard, useTexture } from "@react-three/drei";
+import { Billboard, Text, useTexture } from "@react-three/drei";
 import { useEffect, useState } from "react";
 import { Vector3 } from "three";
 import { Lover } from "./useReactLovers";
@@ -21,6 +21,14 @@ export function ReactLover({ lover, position }: Props) {
 
   return (
     <Billboard position={position}>
+      <Text
+        position={new Vector3(0, 0.7, 0)}
+        visible={hovered}
+        anchorY="top"
+        fontSize={0.2}
+      >
+        {lover.github_username}
+      </Text>
       <mesh
         onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
         onPointerOut={() => setHovered(false)}
