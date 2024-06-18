@@ -2,7 +2,7 @@
 
 Cette démo réalisée à l'occasion d'un talk pour [React Paris](https://github.com/reactparis), montre comment utiliser la bibliothèque React Three Fiber afin de créer des sites web interactifs en 3D.
 
-![demo](https://s3.amazonaws.com/media-p.slid.es/uploads/16589/images/11415198/main_large.gif)
+![demo](https://github.com/jeremt/react-paris-demo/assets/1913169/5a160441-a197-4a37-b293-62eb028ac0c7)
 
 Tu peux retrouver les slides au talk [ici](https://react-lovers.vercel.app/slides.html).
 
